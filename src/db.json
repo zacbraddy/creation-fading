@@ -1,0 +1,19 @@
+{
+  "characters": [
+    { "id": "23", "firstName": "Bill", "age": 20, "locationId": "1" },
+    { "id": "40", "firstName": "Alex", "age": 40, "locationId": "1" },
+    { "id": "41", "firstName": "Nick", "age": 40, "locationId": "2" }
+  ],
+  "locations": [
+    {
+      "id": "1",
+      "name": "The Crafty Crow",
+      "description": "A rough and tumble provincial tavern"
+    },
+    {
+      "id": "2",
+      "name": "The Greenwood Forest",
+      "description": "Beautiful and deadly in equal measure"
+    }
+  ]
+}
