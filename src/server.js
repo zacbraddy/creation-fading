@@ -1,26 +1,24 @@
-import sirv from "sirv";
-import polka from "polka";
-import compression from "compression";
-import * as sapper from "@sapper/server";
+import sirv from 'sirv';
+import polka from 'polka';
+import compression from 'compression';
+import * as sapper from '@sapper/server';
 
-import expressGraphQL from "express-graphql";
-import schema from "./schemas";
+import expressGraphQL from 'express-graphql';
+import schema from './schemas';
+import env from './env';
 
-const { PORT, NODE_ENV } = process.env;
-const dev = NODE_ENV === "development";
+const app = polka();
 
-const app = polka(); // You can also use Express
-
-if (dev) {
-  app.use("/graphql", expressGraphQL({ graphiql: true, schema }));
+if (env.isDev) {
+  app.use('/graphql', expressGraphQL({ graphiql: true, schema }));
 }
 
 app
   .use(
     compression({ threshold: 0 }),
-    sirv("static", { dev }),
+    sirv('static', { dev: env.isDev }),
     sapper.middleware()
   )
-  .listen(PORT, (err) => {
-    if (err) console.log("error", err);
+  .listen(env.PORT, (err) => {
+    if (err) console.log('error', err);
   });

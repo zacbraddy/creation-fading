@@ -1,8 +1,28 @@
 {
   "characters": [
-    { "id": "23", "firstName": "Bill", "age": 20, "locationId": "1" },
-    { "id": "40", "firstName": "Alex", "age": 40, "locationId": "1" },
-    { "id": "41", "firstName": "Nick", "age": 40, "locationId": "2" }
+    {
+      "id": "23",
+      "firstName": "Bill",
+      "age": 20,
+      "locationId": "1"
+    },
+    {
+      "id": "40",
+      "firstName": "Alex",
+      "age": 40,
+      "locationId": "1"
+    },
+    {
+      "id": "41",
+      "firstName": "Nick",
+      "age": 40,
+      "locationId": "2"
+    },
+    {
+      "firstName": "Lazar",
+      "age": 500,
+      "id": "LNxqFRu"
+    }
   ],
   "locations": [
     {
