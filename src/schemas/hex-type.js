@@ -9,8 +9,9 @@ const {
 } = graphql;
 const Hex = mongoose.model('hex');
 const LocationType = require('./location-type');
+const CharacterType = require('./character-type');
 
-const SongType = new GraphQLObjectType({
+const HexType = new GraphQLObjectType({
   name: 'HexType',
   fields: () => ({
     id: { type: GraphQLID },
@@ -24,7 +25,13 @@ const SongType = new GraphQLObjectType({
         return Hex.findLocations(parentValue.id);
       },
     },
+    characters: {
+      type: new GraphQLList(CharacterType),
+      resolve(parentValue) {
+        return Hex.findCharacters(parentValue.id);
+      },
+    },
   }),
 });
 
-module.exports = SongType;
+module.exports = HexType;

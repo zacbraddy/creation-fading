@@ -12,12 +12,12 @@ const HexSchema = new Schema({
       ref: 'location',
     },
   ],
-  /*characters: [
+  characters: [
     {
       type: Schema.Types.ObjectId,
       ref: 'character',
     },
-  ],*/
+  ],
 });
 
 HexSchema.statics.addNewLocation = async function (
@@ -42,7 +42,7 @@ HexSchema.statics.addNewLocation = async function (
     hex.save(),
   ]);
 
-  return savedHex;
+  return savedLocation;
 };
 
 HexSchema.statics.addExistingLocation = async function (hexId, locationId) {
@@ -57,7 +57,7 @@ HexSchema.statics.addExistingLocation = async function (hexId, locationId) {
     hex.save(),
   ]);
 
-  return savedHex;
+  return savedLocation;
 };
 
 HexSchema.statics.findLocations = async function (id) {
@@ -66,20 +66,19 @@ HexSchema.statics.findLocations = async function (id) {
   return locations;
 };
 
-/*HexSchema.statics.addNewCharacter = async function (
+HexSchema.statics.addNewCharacter = async function (
   id,
-  { name, description, age, location, hex }
+  { name, description, age }
 ) {
   const Character = mongoose.model('character');
+  const hex = await this.findById(id);
   const newCharacter = new Character({
     name,
     description,
     age,
-    location,
     hex,
   });
 
-  const hex = await this.findById(id);
   hex.characters.push(newCharacter);
 
   const [savedCharacter, savedHex] = await Promise.all([
@@ -87,13 +86,13 @@ HexSchema.statics.findLocations = async function (id) {
     hex.save(),
   ]);
 
-  return savedHex;
+  return savedCharacter;
 };
 
 HexSchema.statics.findCharacters = async function (id) {
-  const characters = await this.findById(id).populate('characters');
+  const { characters } = await this.findById(id).populate('characters');
 
-  return hex.characters;
-};*/
+  return characters;
+};
 
 mongoose.model('hex', HexSchema);

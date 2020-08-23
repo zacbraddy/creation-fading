@@ -9,7 +9,7 @@ const LocationType = require('./location-type');
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: () => ({
-    hexs: {
+    hexes: {
       type: new GraphQLList(HexType),
       resolve() {
         return Hex.find({});
