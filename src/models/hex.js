@@ -3,37 +3,38 @@ const Schema = mongoose.Schema;
 
 const HexSchema = new Schema({
   terrainType: { type: String },
-  col: { type: number },
-  row: { type: number },
-  locationLimit: { type: number },
+  col: { type: Number },
+  row: { type: Number },
+  locationLimit: { type: Number },
   locations: [
     {
       type: Schema.Types.ObjectId,
       ref: 'location',
     },
   ],
-  characters: [
+  /*characters: [
     {
       type: Schema.Types.ObjectId,
       ref: 'character',
     },
-  ],
+  ],*/
 });
 
 HexSchema.statics.addNewLocation = async function (
   id,
-  { name, description, characterLimit, characters }
+  { name, description, characterLimit /*, characters*/ }
 ) {
   const Location = mongoose.model('location');
+  const hex = await this.findById(id);
+
   const newLocation = new Location({
     name,
     description,
     characterLimit,
-    characters,
+    // charactersIds,
     hex,
   });
 
-  const hex = await this.findById(id);
   hex.locations.push(newLocation);
 
   const [savedLocation, savedHex] = await Promise.all([
@@ -60,12 +61,12 @@ HexSchema.statics.addExistingLocation = async function (hexId, locationId) {
 };
 
 HexSchema.statics.findLocations = async function (id) {
-  const locations = await this.findById(id).populate('locations');
+  const { locations } = await this.findById(id).populate('locations');
 
-  return hex.locations;
+  return locations;
 };
 
-HexSchema.statics.addNewCharacter = async function (
+/*HexSchema.statics.addNewCharacter = async function (
   id,
   { name, description, age, location, hex }
 ) {
@@ -89,25 +90,10 @@ HexSchema.statics.addNewCharacter = async function (
   return savedHex;
 };
 
-HexSchema.statics.addExistingLocation = async function (hexId, characterId) {
-  const hex = await this.findById(hexId);
-  const character = await mongoose.model('character').findById(characterId);
-
-  character.hex = hex;
-  hex.characters.push(character);
-
-  const [savedCharacter, savedHex] = await Promise.all([
-    character.save(),
-    hex.save(),
-  ]);
-
-  return savedHex;
-};
-
 HexSchema.statics.findCharacters = async function (id) {
   const characters = await this.findById(id).populate('characters');
 
   return hex.characters;
-};
+};*/
 
 mongoose.model('hex', HexSchema);
