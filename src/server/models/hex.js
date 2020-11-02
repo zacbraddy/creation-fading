@@ -1,12 +1,11 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
 const HexSchema = new Schema({
   terrainType: { type: String },
   col: { type: Number },
   row: { type: Number },
   locationLimit: { type: Number },
-  locations: [
+  /*locations: [
     {
       type: Schema.Types.ObjectId,
       ref: 'location',
@@ -17,7 +16,7 @@ const HexSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'character',
     },
-  ],
+  ],*/
 });
 
 HexSchema.statics.addNewLocation = async function (
@@ -89,10 +88,4 @@ HexSchema.statics.addNewCharacter = async function (
   return savedCharacter;
 };
 
-HexSchema.statics.findCharacters = async function (id) {
-  const { characters } = await this.findById(id).populate('characters');
-
-  return characters;
-};
-
-mongoose.model('hex', HexSchema);
+export default mongoose.model('hex', HexSchema);

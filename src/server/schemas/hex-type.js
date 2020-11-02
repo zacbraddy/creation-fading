@@ -8,8 +8,8 @@ const {
   GraphQLList,
 } = graphql;
 const Hex = mongoose.model('hex');
-const LocationType = require('./location-type');
-const CharacterType = require('./character-type');
+//const LocationType = require('./location-type');
+//const CharacterType = require('./character-type');
 
 const HexType = new GraphQLObjectType({
   name: 'HexType',
@@ -19,7 +19,7 @@ const HexType = new GraphQLObjectType({
     col: { type: GraphQLInt },
     row: { type: GraphQLInt },
     locationLimit: { type: GraphQLInt },
-    locations: {
+    /*locations: {
       type: new GraphQLList(LocationType),
       resolve(parentValue) {
         return Hex.findLocations(parentValue.id);
@@ -30,7 +30,7 @@ const HexType = new GraphQLObjectType({
       resolve(parentValue) {
         return Hex.findCharacters(parentValue.id);
       },
-    },
+    },*/
   }),
 });
 
