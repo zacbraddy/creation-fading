@@ -5,6 +5,7 @@ const Hex = mongoose.model('hex');
 const Location = mongoose.model('location');
 const HexType = require('./hex-type');
 const LocationType = require('./location-type');
+const CharacterType = require('./character-type');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -31,6 +32,18 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { name, description, characterLimit, hexId }) {
         return Hex.addNewLocation(hexId, { name, description, characterLimit });
+      },
+    },
+    addCharacterToHex: {
+      type: CharacterType,
+      args: {
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        age: { type: GraphQLInt },
+        hexId: { type: GraphQLID },
+      },
+      resolve(parentValue, { name, description, age, hexId }) {
+        return Hex.addNewCharacter(hexId, { name, description, age });
       },
     },
     deleteHex: {

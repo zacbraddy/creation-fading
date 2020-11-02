@@ -8,7 +8,7 @@ const LocationSchema = new Schema({
   // charactersIds: [{ type: Schema.Types.ObjectId, ref: 'characters' }],
   hex: {
     type: Schema.Types.ObjectId,
-    ref: 'hexs',
+    ref: 'hex',
   },
 });
 
